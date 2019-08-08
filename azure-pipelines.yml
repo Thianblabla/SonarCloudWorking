@@ -16,7 +16,12 @@ steps:
 - checkout: self
   clean: true
 
-
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'IROSReal'
+    organization: 'iros'
+    scannerMode: 'MSBuild'
+    projectKey: 'SonarCloudWorking'
 
 - script: dotnet build --configuration $(buildConfiguration)
   workingDirectory: OnlineService
