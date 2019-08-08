@@ -22,6 +22,9 @@ steps:
     organization: 'iros'
     scannerMode: 'MSBuild'
     projectKey: 'SonarCloudWorking'
+    extraProperties: |
+      sonar.exclusions=**/lib/**
+      sonar.cs.opencover.reportsPaths=$(Build.ArtifactStagingDirectory)/coverage/*
 
 - script: dotnet build --configuration $(buildConfiguration)
   workingDirectory: OnlineService
@@ -33,7 +36,11 @@ steps:
   inputs:
     command: test
     projects: 'OnlineService/OnlineService.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration)'
+    arguments: '--configuration $(buildConfiguration)
+    /p:CollectCoverage=true
+    /p:CoverletOutputFormat=opencover
+    /p:CoverletOutput=$(Build.ArtifactStagingDirectory)/coverage/
+    /p:Exclude="[xunit*]*'
 
 - task: SonarCloudAnalyze@1
   continueOnError: true
