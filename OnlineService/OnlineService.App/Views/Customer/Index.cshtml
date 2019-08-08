@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OnlineService.Library.Customer>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Customer List</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div>
+    <form asp-action="Index" method="get" class="form-inline">
+        <label>
+            Search
+            <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" name="search" />
+        </label>
+        <button class="btn btn-primary" type="submit">Search</button>
+    </form>
+</div>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @* "HTML helpers" one kind of syntax for some extra Razor behavior *@
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+
+                    @Html.ActionLink("Order Items", "SetUp", "Order", new { customerId = item.Id }) |
+                    @Html.ActionLink("Past Orders", "OrderList", new { id = item.Id })
+
+                    @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

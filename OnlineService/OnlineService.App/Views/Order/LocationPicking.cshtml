@@ -1,0 +1,53 @@
+﻿@model IEnumerable<OnlineService.Library.Location>
+
+@{
+    ViewData["Title"] = "LocationPicking";
+}
+
+<h1>LocationPicking</h1>
+
+<div>
+    <div>
+        <form asp-action="Index" method="get" class="form-inline">
+            <label>
+                Search
+                <input type="search" class="form-control mb-2 mr-sm-2 mb-sm-0" name="search" />
+            </label>
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
+    </div>
+    
+<div>
+    <a asp-action="Back" asp-controller="Order">Back to Customer List</a>
+</div>
+
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @* "HTML helpers" one kind of syntax for some extra Razor behavior *@
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Use This Location", "ChoseLocation", new { id = item.Id })
+
+                        @*<a asp-action="Edit" asp-route-id="@item.Id">Edit</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

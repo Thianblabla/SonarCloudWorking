@@ -1,0 +1,49 @@
+﻿@model OnlineService.Library.Order
+
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>Orders</h1>
+
+<div>
+    <h4>Order</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Ordered)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ItemCount)
+                </th>
+                <th>
+                    Total Price
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Ordered)
+            {
+                <tr>
+                    <td>
+                        @* "HTML helpers" one kind of syntax for some extra Razor behavior *@
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => Model.ItemCount[item.Id])
+                    </td>
+                    <td>
+                        @{decimal totalPrice = Model.TotalPriceOfItem(item.Id); }
+                        @Html.DisplayFor(modelItem => totalPrice)
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-controller="Customer" asp-action="OrderList" asp-route-id="@Model.CustomerId">Back to Orders</a>
+</div>

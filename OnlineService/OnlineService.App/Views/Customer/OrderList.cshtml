@@ -1,0 +1,57 @@
+﻿@model IEnumerable<OnlineService.Library.Order>
+
+@{
+    ViewData["Title"] = "OrderList";
+}
+
+<h1>Index</h1>
+
+<div>
+    <h4>Orders</h4>
+    <hr />
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Id)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Recipient.FullName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.OrderLocation.Name)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PlacedTime)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @* "HTML helpers" one kind of syntax for some extra Razor behavior *@
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Recipient.FullName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.OrderLocation.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PlacedTime)
+                </td>
+                <td>
+                    @Html.ActionLink("Order Contents", "Orders", new { id = item.Id })
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div>
+    <a asp-controller="Customer" asp-action="Index">Back to List</a>
+</div>
