@@ -26,6 +26,11 @@ steps:
       sonar.exclusions=**/lib/**
       sonar.cs.opencover.reportsPaths=$(Build.ArtifactStagingDirectory)/coverage/*
 
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    feedsToUse: 'select'
+
 - script: dotnet build --configuration $(buildConfiguration)
   workingDirectory: OnlineService
   displayName: 'dotnet build $(buildConfiguration)'
